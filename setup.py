@@ -42,7 +42,6 @@ install_requires = [
       'fastecdsa>=2.2.1;platform_system!="Windows"',
       'ecdsa>=0.17;platform_system=="Windows"',
       'pycryptodome>=3.14.1',
-      'SQLAlchemy>=1.4.28',
       'numpy==1.19.5;python_version<"3.9"',
       'numpy>=1.22.0;python_version>="3.9"'
 ]
