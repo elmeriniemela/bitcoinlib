@@ -26,7 +26,6 @@ import json
 from bitcoinlib.networks import Network, network_by_value, wif_prefix_search
 from bitcoinlib.config.secp256k1 import *
 from bitcoinlib.encoding import *
-from bitcoinlib.mnemonic import Mnemonic
 
 rfc6979_warning_given = False
 if USE_FASTECDSA:

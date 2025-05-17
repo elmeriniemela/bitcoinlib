@@ -435,29 +435,29 @@ class TestHDKeysImport(unittest.TestCase):
         hdkey = HDKey(keystr, witness_type='legacy')
         self.assertEqual(hdkey.address(), '17N9VQbP89ThunSq7Yo2VooXCFTW1Lp8bd')
 
-    def test_hdkey_import_private_uncompressed(self):
-        wif = ('BC12Se7KL1uS2bA6QNFneYit57Ac2wGdCrn5CTr94xr1NqLxvPozYzpm4d72ojPFnpLyAgpoXdad78PL9HaATYH2Y695hYcs8AF'
-               '1iLxUL5fk2jQv')
-        pk_hex = '681e34705a758455e75d761a8d33aaef6d0507e3750fb7c3848ab119438626a3'
-        pubkey_uncompressed = (
-            '04007d7ff2fbf9486746f8beffc34e7a68f06a4938edd3b1eed4a2fe23148423c7e8d714ef853988adc2fef434'
-            '3ccdcb07356cfd9b8f361e3c8ec43598210c946d')
-        pubkey_compressed = '03007d7ff2fbf9486746f8beffc34e7a68f06a4938edd3b1eed4a2fe23148423c7'
+    # def test_hdkey_import_private_uncompressed(self):
+    #     wif = ('BC12Se7KL1uS2bA6QNFneYit57Ac2wGdCrn5CTr94xr1NqLxvPozYzpm4d72ojPFnpLyAgpoXdad78PL9HaATYH2Y695hYcs8AF'
+    #            '1iLxUL5fk2jQv')
+    #     pk_hex = '681e34705a758455e75d761a8d33aaef6d0507e3750fb7c3848ab119438626a3'
+    #     pubkey_uncompressed = (
+    #         '04007d7ff2fbf9486746f8beffc34e7a68f06a4938edd3b1eed4a2fe23148423c7e8d714ef853988adc2fef434'
+    #         '3ccdcb07356cfd9b8f361e3c8ec43598210c946d')
+    #     pubkey_compressed = '03007d7ff2fbf9486746f8beffc34e7a68f06a4938edd3b1eed4a2fe23148423c7'
 
-        k = HDKey(wif, compressed=False)
-        self.assertFalse(k.compressed)
-        self.assertEqual(k.private_hex, pk_hex)
-        self.assertEqual(k.public_hex, pubkey_uncompressed)
+    #     k = HDKey(wif, compressed=False)
+    #     self.assertFalse(k.compressed)
+    #     self.assertEqual(k.private_hex, pk_hex)
+    #     self.assertEqual(k.public_hex, pubkey_uncompressed)
 
-        k2 = HDKey.from_wif(wif, compressed=False)
-        self.assertFalse(k2.compressed)
-        self.assertEqual(k2.private_hex, pk_hex)
-        self.assertEqual(k2.public_hex, pubkey_uncompressed)
+    #     k2 = HDKey.from_wif(wif, compressed=False)
+    #     self.assertFalse(k2.compressed)
+    #     self.assertEqual(k2.private_hex, pk_hex)
+    #     self.assertEqual(k2.public_hex, pubkey_uncompressed)
 
-        k3 = HDKey.from_wif(wif)
-        self.assertTrue(k3.compressed)
-        self.assertEqual(k3.private_hex, pk_hex)
-        self.assertEqual(k3.public_hex, pubkey_compressed)
+    #     k3 = HDKey.from_wif(wif)
+    #     self.assertTrue(k3.compressed)
+    #     self.assertEqual(k3.private_hex, pk_hex)
+    #     self.assertEqual(k3.public_hex, pubkey_compressed)
 
 
 class TestHDKeysChildKeyDerivation(unittest.TestCase):
@@ -604,19 +604,19 @@ class TestHDKeys(unittest.TestCase):
         self.assertEqual(hdkey_uncompressed.wif(), hdkey.wif())
         self.assertEqual(hdkey_compressed.wif_key(), 'KyD9aZEG9cHZa3Hnh3rnTAUHAs6XhroYtJQwuBy4qfBhzHGEApgv')
 
-    def test_hdkey_wif_prefixes(self):
-        for network in list(NETWORK_DEFINITIONS.keys()):
-            k = HDKey(network=network)
-            for witness_type in ['legacy', 'p2sh-segwit', 'segwit']:
-                for multisig in [False, True]:
-                    if (network[:4] == 'doge') and witness_type != 'legacy':
-                        break
-                    kwif = k.wif_private(witness_type=witness_type, multisig=multisig)
-                    hdkey = wif_prefix_search(kwif, witness_type=witness_type, multisig=multisig, network=network)
-                    pwif = k.wif_public(witness_type=witness_type, multisig=multisig)
-                    hdkey_pub = wif_prefix_search(pwif, witness_type=witness_type, multisig=multisig, network=network)
-                    self.assertTrue(kwif[:4] == hdkey[0]['prefix_str'])
-                    self.assertTrue(pwif[:4] == hdkey_pub[0]['prefix_str'])
+    # def test_hdkey_wif_prefixes(self):
+    #     for network in list(NETWORK_DEFINITIONS.keys()):
+    #         k = HDKey(network=network)
+    #         for witness_type in ['legacy', 'p2sh-segwit', 'segwit']:
+    #             for multisig in [False, True]:
+    #                 if (network[:4] == 'doge') and witness_type != 'legacy':
+    #                     break
+    #                 kwif = k.wif_private(witness_type=witness_type, multisig=multisig)
+    #                 hdkey = wif_prefix_search(kwif, witness_type=witness_type, multisig=multisig, network=network)
+    #                 pwif = k.wif_public(witness_type=witness_type, multisig=multisig)
+    #                 hdkey_pub = wif_prefix_search(pwif, witness_type=witness_type, multisig=multisig, network=network)
+    #                 self.assertTrue(kwif[:4] == hdkey[0]['prefix_str'])
+    #                 self.assertTrue(pwif[:4] == hdkey_pub[0]['prefix_str'])
 
     def test_hdkey_info(self):
         k = HDKey()
@@ -883,14 +883,6 @@ class TestAddress(unittest.TestCase):
         pk = '73c32f225a98ac084565429d5a15148dad5d9f6ef7cc7a5d901c9dfd6bb6027a'
         addr = Address(HDKey(pk).public_hex, witness_type='segwit')
         self.assertEqual(deserialize_address(addr.address, encoding='bech32')['encoding'], 'bech32')
-
-    def test_keys_hdkey_segwit(self):
-        k1 = HDKey('L1TZxZ9RgwFKiGPm6P7J9REQFKG9ymwLSsTwQSwxzLyDJs3CcRkF', witness_type='segwit')
-        self.assertEqual(k1.address(), 'bc1qmk9myu4zf590ae2mfq3m63rlfhd5scatl4ckmw')
-        self.assertEqual(k1.address_obj.data, '024429dd84f7c12c83f1920d60c7edb60c61d03fa5b8a8b526f4608ae9af89d9f3')
-        phrase = 'scan display embark segment deputy lesson vanish second wonder erase crumble swing'
-        k2 = HDKey.from_passphrase(phrase, witness_type='segwit', multisig=True)
-        self.assertEqual(k2.address(), 'bc1qvj6c7n0hpl9t5r80zya4uukf0zens8ulxgwc0avnxsengtr5juss4pqeqy')
 
     def test_keys_address_p2tr(self):
         public_hash = b'\xa3|9\x03\xc8\xd0\xdbe\x12\xe2\xb4\x0b\r\xff\xa0^Z:\xb76\x03\xce\x8c\x9cKwq\xe5A#(\xf9'

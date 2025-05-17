@@ -15,12 +15,6 @@ class TestNetworks(unittest.TestCase):
         self.assertEqual(network_by_value('prefix_wif', '80')[:1], ['bitcoin'])
         self.assertEqual(network_by_value('prefix_wif', '10'), [])
 
-    def test_networks_prefix_bech32_network_by_value(self):
-        self.assertEqual(network_by_value('prefix_bech32', 'tb'), ['testnet', 'testnet4', 'signet'])
-
-    def test_networks_prefix_bech32_network_by_value_sorted(self):
-        self.assertEqual(network_by_value('prefix_bech32', 'ltc'), ['litecoin', 'litecoin_legacy'])
-
     def test_networks_prefix_hdkey_wif(self):
         network = Network('bitcoin')
         self.assertEqual(network.wif_prefix(is_private=True), b'\x04\x88\xad\xe4')

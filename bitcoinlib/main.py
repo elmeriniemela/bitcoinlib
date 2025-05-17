@@ -80,6 +80,8 @@ def script_type_default(witness_type=None, multisig=False, locking_script=False)
         return 'p2sh' if locking_script else 'p2sh_p2wpkh'
     elif witness_type == 'p2sh-segwit' and multisig:
         return 'p2sh' if locking_script else 'p2sh_p2wsh'
+    elif witness_type == 'taproot':
+        return 'p2tr'
     else:
         raise ValueError("Wallet and key type combination not supported: %s / %s" % (witness_type, multisig))
 
@@ -145,5 +147,5 @@ def deprecated(func):
     def new_func(*args, **kwargs):
         logging.warning("Call to deprecated function {}.".format(func.__name__))
         return func(*args, **kwargs)
-    
+
     return new_func
